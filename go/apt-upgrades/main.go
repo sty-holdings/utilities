@@ -25,12 +25,17 @@ COPYRIGHT:
 package main
 
 import (
+	"bufio"
+	"fmt"
 	"log"
 	"os"
+	"strings"
 
+	ctv "github.com/sty-holdings/constant-type-vars-go/v2024"
 	pi "github.com/sty-holdings/sty-shared/v2024/programInfo"
 )
 
+//goland:noinspection ALL
 const (
 	APT_UPGRADE_TMP_FILE = "/tmp/apt-upgrades.tmp"
 )
@@ -48,13 +53,28 @@ func init() {
 func main() {
 
 	var (
-		errorInfo pi.ErrorInfo
+		errorInfo       pi.ErrorInfo
+		tAptUpgradefile *os.File
+		tNodes          []string
 	)
 
-	if file, errorInfo = os.Open(APT_UPGRADE_TMP_FILE); log.Fatal(err) {
+	if tAptUpgradefile, errorInfo.Error = os.Open(APT_UPGRADE_TMP_FILE); errorInfo.Error != nil {
+		log.Fatal(errorInfo.Error)
+	}
+	defer tAptUpgradefile.Close()
+
+	scanner := bufio.NewScanner(tAptUpgradefile)
+	for scanner.Scan() {
+		if strings.Contains(scanner.Text(), ctv.FORWARD_SLASH) {
+			tNodes = strings.Split(scanner.Text(), ctv.FORWARD_SLASH)
+			fmt.Printf("sudo apt-get upgrade %v -y \n", tNodes[0])
+		}
 	}
 
-	// Don't forget to close the file!
-	defer file.Close()
-	// Afterwards you can perform reading operations...
+	if err := scanner.Err(); err != nil {
+		log.Fatal(err)
+	}
+
+	return
+
 }
