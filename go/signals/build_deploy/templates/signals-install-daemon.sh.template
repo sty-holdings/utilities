@@ -1,0 +1,21 @@
+#!/bin/bash
+#
+# Name: NATS-1.0-setup.sh
+#
+# Description: Installs a stand alone instance of the NATS server
+#
+# Installation:
+#   None required
+#
+# Copyright (c) 2022 STY-Holdings Inc
+# All Rights Reserved
+#
+
+sudo cp ${INSTALL_ROOT_DIRECTORY}/.config/${SERVER_NAME}.servicefile /etc/systemd/system/${SERVER_NAME}.service
+sudo chmod 755 /etc/systemd/system/${SERVER_NAME}.service
+sudo systemctl daemon-reload
+
+# Start server
+echo "Starting SavUp Server"
+sudo systemctl start ${SERVER_NAME}.service
+echo

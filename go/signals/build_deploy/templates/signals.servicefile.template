@@ -1,0 +1,14 @@
+[Unit]
+Description=STY Holdings Inc. SavUp Service
+After=network.target
+
+[Service]
+Type=simple
+Restart=on-failure
+RestartSec=10
+User=scott_yacko_sty_holdings_com
+
+ExecStart=${INSTALL_ROOT_DIRECTORY}/bin/${SERVER_NAME}
+
+[Install]
+WantedBy=default.target
