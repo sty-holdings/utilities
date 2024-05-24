@@ -9,5 +9,5 @@ echo "Creating apt upgrade list"
 apt list --upgradable --quiet > /tmp/apt-upgrades.tmp
 echo "------"
 echo "Generating apt upgrade commands"
-apt-update
+/Users/syacko/workspace/sty-holdings/utilities/go/apt-upgrades/bin/apt-upgrades
 echo "done"
