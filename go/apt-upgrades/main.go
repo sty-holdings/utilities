@@ -54,16 +54,16 @@ func main() {
 
 	var (
 		errorInfo       pi.ErrorInfo
-		tAptUpgradefile *os.File
+		tAptUpgradeFile *os.File
 		tNodes          []string
 	)
 
-	if tAptUpgradefile, errorInfo.Error = os.Open(APT_UPGRADE_TMP_FILE); errorInfo.Error != nil {
+	if tAptUpgradeFile, errorInfo.Error = os.Open(APT_UPGRADE_TMP_FILE); errorInfo.Error != nil {
 		log.Fatal(errorInfo.Error)
 	}
-	defer tAptUpgradefile.Close()
+	defer tAptUpgradeFile.Close()
 
-	scanner := bufio.NewScanner(tAptUpgradefile)
+	scanner := bufio.NewScanner(tAptUpgradeFile)
 	for scanner.Scan() {
 		if strings.Contains(scanner.Text(), ctv.FORWARD_SLASH) {
 			tNodes = strings.Split(scanner.Text(), ctv.FORWARD_SLASH)
