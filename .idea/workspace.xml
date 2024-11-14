@@ -5,49 +5,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c306a59c-377f-42fb-934f-0cc422fca142" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/go/encrypt-decrypt/go.mod" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/go/encrypt-decrypt/go.sum" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/go/encrypt-decrypt/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/LICENSE" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/apt-upgrades.sh" beforeDir="false" afterPath="$PROJECT_DIR$/bin/apt-upgrades.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/generate-nats-user-creds.sh" beforeDir="false" afterPath="$PROJECT_DIR$/bin/generate-nats-user-creds.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go/apt-upgrades/build.mk" beforeDir="false" afterPath="$PROJECT_DIR$/go/apt-upgrades/build.mk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go/apt-upgrades/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go/apt-upgrades/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go/apt-upgrades/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go/apt-upgrades/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go/apt-upgrades/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/go/apt-upgrades/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go/aws_ses_email_tester/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/go/aws_ses_email_tester/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go/condition_table/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/go/condition_table/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go/generate_certificate/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/go/generate_certificate/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go/generate_certificate/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/go/generate_certificate/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go/generate_certificate/src/run.go" beforeDir="false" afterPath="$PROJECT_DIR$/go/generate_certificate/src/run.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go/generate_certificate_authority/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/go/generate_certificate_authority/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go/generate_certificate_authority/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/go/generate_certificate_authority/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go/generate_firebase_jwt/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/go/generate_firebase_jwt/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go/send_grid/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/go/send_grid/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go/signals/build_deploy/Makefile_GCloud.mk" beforeDir="false" afterPath="$PROJECT_DIR$/go/signals/build_deploy/Makefile_GCloud.mk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go/signals/build_deploy/templates/signals.servicefile.template" beforeDir="false" afterPath="$PROJECT_DIR$/go/signals/build_deploy/templates/signals.servicefile.template" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go/signals/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/go/signals/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go/verify_certificate/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/go/verify_certificate/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go/verify_certificate/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/go/verify_certificate/main.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/go/gen-key/go.mod" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/go/gen-key/main.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/go/submit-questions/go.mod" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/go/submit-questions/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go/encrypt-decrypt/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go/encrypt-decrypt/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go/encrypt-decrypt/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go/encrypt-decrypt/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go/encrypt-decrypt/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/go/encrypt-decrypt/main.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Go File" />
+      </list>
+    </option>
+  </component>
   <component name="GOROOT" url="file:///usr/local/go" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 7
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectId" id="2oidCZnW865wSRo3u4Z3ZN6oupI" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -55,6 +40,13 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "DefaultGoTemplateProperty": "Go File",
+    "Go Build.Decrypt -b.executor": "Debug",
+    "Go Build.Decrypt.executor": "Debug",
+    "Go Build.Encrypt/Decrypt -b.executor": "Debug",
+    "Go Build.Gen Symmetiric Key.executor": "Run",
+    "Go Build.Submit Question.executor": "Run",
+    "Go Build.go build gen-key.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.go.formatter.settings.were.checked": "true",
     "RunOnceActivity.go.migrated.go.modules.settings": "true",
@@ -68,6 +60,51 @@
     "nodejs_package_manager_path": "npm"
   }
 }]]></component>
+  <component name="RunManager" selected="Go Build.Submit Question">
+    <configuration name="Decrypt" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="utilities" />
+      <working_directory value="$PROJECT_DIR$/go/encrypt-decrypt" />
+      <parameters value="-k 'jFMT5lqjN734pxX4Jq+6FFHlHBRWtJcomrDHKqed4GQ=' -m 'vXzzysVxD6cbVeRzyjFz4U4EhQKsW+zSX8qd5KhlOcpgZeY=' -d" />
+      <kind value="FILE" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/go/encrypt-decrypt/main.go" />
+      <method v="2">
+        <option name="ToolBeforeRunTask" enabled="true" actionId="Tool_External Tools_Get STYH Packages" />
+      </method>
+    </configuration>
+    <configuration name="Gen Symmetiric Key" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true">
+      <module name="utilities" />
+      <working_directory value="$PROJECT_DIR$/go/gen-key" />
+      <kind value="PACKAGE" />
+      <package value="gen-key" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/go/gen-key/main.go" />
+      <method v="2">
+        <option name="ToolBeforeRunTask" enabled="true" actionId="Tool_External Tools_Get STYH Packages" />
+      </method>
+    </configuration>
+    <configuration name="Submit Question" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="utilities" />
+      <working_directory value="$PROJECT_DIR$/go/gen-key" />
+      <kind value="PACKAGE" />
+      <package value="gen-key" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/go/gen-key/main.go" />
+      <method v="2">
+        <option name="ToolBeforeRunTask" enabled="true" actionId="Tool_External Tools_Get STYH Packages" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Go Build.Decrypt" />
+      <item itemvalue="Go Build.Submit Question" />
+      <item itemvalue="Go Build.Gen Symmetiric Key" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Go Build.Gen Symmetiric Key" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -82,5 +119,34 @@
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/../../pkg/mod/github.com/sty-holdings/shared!services/v2024@v2024.11.1/jwtServices/jwtServices.go</url>
+          <line>109</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/go/encrypt-decrypt/main.go</url>
+          <line>86</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/../../pkg/mod/github.com/sty-holdings/shared!services/v2024@v2024.11.3/jwtServices/jwtServices.go</url>
+          <line>119</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/../../pkg/mod/github.com/sty-holdings/shared!services/v2024@v2024.11.3/jwtServices/jwtServices.go</url>
+          <line>95</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/utilities$Encrypt_Decrypt__b.out" NAME="Encrypt/Decrypt -b Coverage Results" MODIFIED="1731435405000" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>
