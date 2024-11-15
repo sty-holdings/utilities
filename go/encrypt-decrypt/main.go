@@ -71,25 +71,29 @@ func main() {
 		flaggy.ShowHelpAndExit("")
 	}
 
-	if decryptMessage && encryptMessage == false {
-		eMessage = message
-	}
-
 	if encryptMessage {
-		if eMessage, errorInfo = jwts.Encrypt(message, key, "Encrypt/Decrypt Utility"); errorInfo.Error != nil {
+		if eMessage, errorInfo = jwts.Encrypt("Encrypt/Decrypt Utility", key, message); errorInfo.Error != nil {
 			errs.PrintErrorInfo(errorInfo)
 			os.Exit(1)
 		}
-		fmt.Printf("Message:\t\t %s\n", message)
-		fmt.Printf("Encrypted Message:\t %s\n", eMessage)
+		fmt.Printf("Key (base64):\t\t\t %s\n", key)
+		fmt.Printf("Message:\t\t\t %s\n", message)
+		fmt.Printf("Encrypted Message (base64):\t %s\n", eMessage)
 	}
 
-	if decryptMessage {
-		if dMessage, errorInfo = jwts.Decrypt(message, key, "Encrypt/Decrypt Utility"); errorInfo.Error != nil {
+	if encryptMessage == false && decryptMessage {
+		if dMessage, errorInfo = jwts.Decrypt("Encrypt/Decrypt Utility", key, message); errorInfo.Error != nil {
 			errs.PrintErrorInfo(errorInfo)
 			os.Exit(1)
 		}
+		fmt.Printf("Decrypted Message:\t %s\n", dMessage)
+	}
 
+	if encryptMessage && decryptMessage {
+		if dMessage, errorInfo = jwts.Decrypt("Encrypt/Decrypt Utility", key, eMessage); errorInfo.Error != nil {
+			errs.PrintErrorInfo(errorInfo)
+			os.Exit(1)
+		}
 		fmt.Printf("Decrypted Message:\t %s\n", dMessage)
 	}
 }

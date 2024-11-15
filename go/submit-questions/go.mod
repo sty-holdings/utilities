@@ -6,7 +6,8 @@ require (
 	cloud.google.com/go/firestore v1.17.0
 	firebase.google.com/go v3.13.0+incompatible
 	github.com/integrii/flaggy v1.5.2
-	github.com/sty-holdings/sharedServices/v2024 v2024.14.0
+	github.com/nats-io/nats.go v1.37.0
+	github.com/sty-holdings/sharedServices/v2024 v2024.15.0
 	golang.org/x/text v0.20.0
 )
 
@@ -31,12 +32,16 @@ require (
 	github.com/felixge/httpsnoop v1.0.4 // indirect
 	github.com/go-logr/logr v1.4.2 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
+	github.com/golang-jwt/jwt/v5 v5.2.1 // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/protobuf v1.5.4 // indirect
 	github.com/google/s2a-go v0.1.8 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/googleapis/enterprise-certificate-proxy v0.3.4 // indirect
 	github.com/googleapis/gax-go/v2 v2.13.0 // indirect
+	github.com/klauspost/compress v1.17.2 // indirect
+	github.com/nats-io/nkeys v0.4.7 // indirect
+	github.com/nats-io/nuid v1.0.1 // indirect
 	github.com/planetscale/vtprotobuf v0.6.1-0.20240319094008-0393e58bdf10 // indirect
 	go.opencensus.io v0.24.0 // indirect
 	go.opentelemetry.io/contrib/detectors/gcp v1.29.0 // indirect

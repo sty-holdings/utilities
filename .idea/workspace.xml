@@ -5,14 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c306a59c-377f-42fb-934f-0cc422fca142" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/go/gen-key/go.mod" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/go/gen-key/main.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/go/submit-questions/go.mod" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/go/submit-questions/main.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go/encrypt-decrypt/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go/encrypt-decrypt/go.mod" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go/encrypt-decrypt/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go/encrypt-decrypt/go.sum" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go/encrypt-decrypt/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/go/encrypt-decrypt/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go/gen-key/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go/gen-key/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go/gen-key/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go/gen-key/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go/submit-questions/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go/submit-questions/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go/submit-questions/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go/submit-questions/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go/submit-questions/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/go/submit-questions/main.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,34 +39,62 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultGoTemplateProperty": "Go File",
-    "Go Build.Decrypt -b.executor": "Debug",
-    "Go Build.Decrypt.executor": "Debug",
-    "Go Build.Encrypt/Decrypt -b.executor": "Debug",
-    "Go Build.Gen Symmetiric Key.executor": "Run",
-    "Go Build.Submit Question.executor": "Run",
-    "Go Build.go build gen-key.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.go.formatter.settings.were.checked": "true",
-    "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "RunOnceActivity.go.modules.automatic.dependencies.download": "true",
-    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
-    "git-widget-placeholder": "main",
-    "go.import.settings.migrated": "true",
-    "last_opened_file_path": "/Users/syacko",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultGoTemplateProperty&quot;: &quot;Go File&quot;,
+    &quot;Go Build.Decrypt -b.executor&quot;: &quot;Debug&quot;,
+    &quot;Go Build.Decrypt.executor&quot;: &quot;Debug&quot;,
+    &quot;Go Build.Encrypt &amp; Decrypt.executor&quot;: &quot;Debug&quot;,
+    &quot;Go Build.Encrypt.executor&quot;: &quot;Run&quot;,
+    &quot;Go Build.Encrypt/Decrypt -b.executor&quot;: &quot;Debug&quot;,
+    &quot;Go Build.Gen Symmetiric Key.executor&quot;: &quot;Run&quot;,
+    &quot;Go Build.Submit Question.executor&quot;: &quot;Debug&quot;,
+    &quot;Go Build.go build gen-key.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.modules.automatic.dependencies.download&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/syacko&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Go Build.Submit Question">
     <configuration name="Decrypt" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="utilities" />
       <working_directory value="$PROJECT_DIR$/go/encrypt-decrypt" />
-      <parameters value="-k 'jFMT5lqjN734pxX4Jq+6FFHlHBRWtJcomrDHKqed4GQ=' -m 'vXzzysVxD6cbVeRzyjFz4U4EhQKsW+zSX8qd5KhlOcpgZeY=' -d" />
+      <parameters value="-k 'eZksuCBJXhvuSXhd8BwTASqrznx86b0+DIQgqvn9HL8=' -m 'jn24xB1aBih/IQEQSug96QxlCKEBFBJpaAlaYdruyp9Am2MSQQZ9uj4aDyX9Gdg62xi/' -d" />
       <kind value="FILE" />
+      <package value="encrypt-decrypt" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/go/encrypt-decrypt/main.go" />
+      <method v="2">
+        <option name="ToolBeforeRunTask" enabled="true" actionId="Tool_External Tools_Get STYH Packages" />
+      </method>
+    </configuration>
+    <configuration name="Encrypt &amp; Decrypt" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="utilities" />
+      <working_directory value="$PROJECT_DIR$/go/encrypt-decrypt" />
+      <parameters value="-k 'eZksuCBJXhvuSXhd8BwTASqrznx86b0+DIQgqvn9HL8=' -m 'THIS IS A test' -e -d" />
+      <kind value="FILE" />
+      <package value="encrypt-decrypt" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/go/encrypt-decrypt/main.go" />
+      <method v="2">
+        <option name="ToolBeforeRunTask" enabled="true" actionId="Tool_External Tools_Get STYH Packages" />
+      </method>
+    </configuration>
+    <configuration name="Encrypt" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="utilities" />
+      <working_directory value="$PROJECT_DIR$/go/encrypt-decrypt" />
+      <parameters value="-k 'eZksuCBJXhvuSXhd8BwTASqrznx86b0+DIQgqvn9HL8=' -m 'THIS IS A test' -e" />
+      <kind value="FILE" />
+      <package value="encrypt-decrypt" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$/go/encrypt-decrypt/main.go" />
       <method v="2">
@@ -85,9 +114,10 @@
     </configuration>
     <configuration name="Submit Question" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="utilities" />
-      <working_directory value="$PROJECT_DIR$/go/gen-key" />
+      <working_directory value="$PROJECT_DIR$/go/submit-questions" />
+      <parameters value="-f &quot;/Volumes/development-share/.keys/com.styholdings.dkanswers/google/service-account-key/dkanswers-key.json&quot; -a &quot;/Volumes/development-share/.keys/sty-holdings.net/local/local_sty-holdings_net/local_sty-holdings_net_CAbundle.crt&quot; -c &quot;/Volumes/development-share/.keys/sty-holdings.net/local/local_sty-holdings_net/local_sty-holdings_net.crt&quot; -k &quot;/Volumes/development-share/.keys/sty-holdings.net/local/local_sty-holdings_net/local-sty-holdings-net-private.key&quot; -n &quot;$USER_HOME$/.local/share/nats/nsc/keys/creds/styh/US-WEST/connect-server-US-WEST.creds&quot; -p &quot;4222&quot; -t -u &quot;local.sty-holdings.net&quot;" />
       <kind value="PACKAGE" />
-      <package value="gen-key" />
+      <package value="submit-questions" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$/go/gen-key/main.go" />
       <method v="2">
@@ -96,6 +126,8 @@
     </configuration>
     <list>
       <item itemvalue="Go Build.Decrypt" />
+      <item itemvalue="Go Build.Encrypt &amp; Decrypt" />
+      <item itemvalue="Go Build.Encrypt" />
       <item itemvalue="Go Build.Submit Question" />
       <item itemvalue="Go Build.Gen Symmetiric Key" />
     </list>
@@ -129,11 +161,6 @@
           <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/go/encrypt-decrypt/main.go</url>
-          <line>86</line>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/../../pkg/mod/github.com/sty-holdings/shared!services/v2024@v2024.11.3/jwtServices/jwtServices.go</url>
           <line>119</line>
           <option name="timeStamp" value="11" />
@@ -142,6 +169,16 @@
           <url>file://$PROJECT_DIR$/../../pkg/mod/github.com/sty-holdings/shared!services/v2024@v2024.11.3/jwtServices/jwtServices.go</url>
           <line>95</line>
           <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/go/encrypt-decrypt/main.go</url>
+          <line>83</line>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/../../pkg/mod/github.com/sty-holdings/shared!services/v2024@v2024.14.1/natsSerices/natsServices.go</url>
+          <line>118</line>
+          <option name="timeStamp" value="21" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
