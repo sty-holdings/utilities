@@ -1,4 +1,132 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PropertiesComponent">{}</component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="ALL" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="9bc63044-a312-46f5-85b3-df06fef891e9" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go/submit-questions/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go/submit-questions/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go/submit-questions/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go/submit-questions/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go/submit-questions/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/go/submit-questions/main.go" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="GOROOT" url="file:///usr/local/go" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="2ozeSogCqjuwjR3q9qTaB0E1UOp" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Go Build.Decrypt / Encrypt Message.executor": "Run",
+    "Go Build.Decrypt Message.executor": "Run",
+    "Go Build.Submit Questions.executor": "Run",
+    "Go Build.Submit Single Questions.executor": "Run",
+    "Go Build.Submit Training Questions.executor": "Debug",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "RunOnceActivity.go.modules.automatic.dependencies.download": "true",
+    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
+    "git-widget-placeholder": "main",
+    "go.import.settings.migrated": "true",
+    "last_opened_file_path": "/Users/syacko",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
+  }
+}]]></component>
+  <component name="RunManager" selected="Go Build.Submit Single Questions">
+    <configuration name="Decrypt Message" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="utilities" />
+      <working_directory value="$PROJECT_DIR$/go/encrypt-decrypt" />
+      <parameters value="-k &quot;BWzIo8nzg/QTkwds8dcjKg==&quot; -m &quot;EczqAXXBe6Za2fNsnoeS3Hcm3nGvWgV5niVEttslAtzCbCF0hmqhVIv9v999IEnqJhz1CkO5nRwJXQ==&quot; -d" />
+      <kind value="FILE" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/go/encrypt-decrypt/main.go" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Decrypt / Encrypt Message" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="utilities" />
+      <working_directory value="$PROJECT_DIR$/go/encrypt-decrypt" />
+      <parameters value="-k &quot;BWzIo8nzg/QTkwds8dcjKg==&quot; -m &quot;What is the temperature today?&quot; -e -d" />
+      <kind value="FILE" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/go/encrypt-decrypt/main.go" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Submit Single Questions" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="utilities" />
+      <working_directory value="$PROJECT_DIR$/go/submit-questions" />
+      <parameters value="-a /Volumes/development-share/.keys/sty-holdings.net/local/local_sty-holdings_net/local_sty-holdings_net_CAbundle.crt -c /Volumes/development-share/.keys/sty-holdings.net/local/local_sty-holdings_net/local_sty-holdings_net.crt -k /Volumes/development-share/.keys/sty-holdings.net/local/local_sty-holdings_net/local-sty-holdings-net-private.key -n $USER_HOME$/.local/share/nats/nsc/keys/creds/styh/US-WEST/connect-server-US-WEST.creds -p 4222 -u local.sty-holdings.net -q &quot;What is the temperature today?&quot; -s &quot;BWzIo8nzg/QTkwds8dcjKg==&quot;" />
+      <kind value="FILE" />
+      <package value="submit-questions" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/go/submit-questions/main.go" />
+      <method v="2">
+        <option name="ToolBeforeRunTask" enabled="true" actionId="Tool_External Tools_Get STYH Packages" />
+      </method>
+    </configuration>
+    <configuration name="Submit Training Questions" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="utilities" />
+      <working_directory value="$PROJECT_DIR$/go/submit-questions" />
+      <parameters value="-f /Volumes/development-share/.keys/com.styholdings.dkanswers/google/service-account-key/dkanswers-key.json -a /Volumes/development-share/.keys/sty-holdings.net/local/local_sty-holdings_net/local_sty-holdings_net_CAbundle.crt -c /Volumes/development-share/.keys/sty-holdings.net/local/local_sty-holdings_net/local_sty-holdings_net.crt -k /Volumes/development-share/.keys/sty-holdings.net/local/local_sty-holdings_net/local-sty-holdings-net-private.key -n $USER_HOME$/.local/share/nats/nsc/keys/creds/styh/US-WEST/connect-server-US-WEST.creds -p 4222 -u local.sty-holdings.net -s &quot;BWzIo8nzg/QTkwds8dcjKg==&quot;" />
+      <kind value="FILE" />
+      <package value="submit-questions" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/go/submit-questions/main.go" />
+      <method v="2">
+        <option name="ToolBeforeRunTask" enabled="true" actionId="Tool_External Tools_Get STYH Packages" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Go Build.Decrypt Message" />
+      <item itemvalue="Go Build.Decrypt / Encrypt Message" />
+      <item itemvalue="Go Build.Submit Single Questions" />
+      <item itemvalue="Go Build.Submit Training Questions" />
+    </list>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-gosdk-33c477a475b1-e0158606a674-org.jetbrains.plugins.go.sharedIndexes.bundled-GO-241.17011.92" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-GO-241.17011.92" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VgoProject">
+    <settings-migrated>true</settings-migrated>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/go/submit-questions/main.go</url>
+          <line>268</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/go/submit-questions/main.go</url>
+          <line>136</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
 </project>

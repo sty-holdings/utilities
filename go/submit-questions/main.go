@@ -15,7 +15,6 @@ import (
 	ctv "github.com/sty-holdings/sharedServices/v2024/constantsTypesVars"
 	errs "github.com/sty-holdings/sharedServices/v2024/errorServices"
 	fbs "github.com/sty-holdings/sharedServices/v2024/firebaseServices"
-	fss "github.com/sty-holdings/sharedServices/v2024/firestoreServices"
 	jwts "github.com/sty-holdings/sharedServices/v2024/jwtServices"
 	ns "github.com/sty-holdings/sharedServices/v2024/natsSerices"
 )
@@ -23,7 +22,6 @@ import (
 var (
 	// Add Variables here for the file (Remember, they are global)
 	// Start up values for a service
-	enterQuestion   bool // False means that the utility will read the questions from Firestore training questions collection.
 	fbCredentials   string
 	natsCABundle    string
 	natsCertificate string
@@ -32,6 +30,7 @@ var (
 	natsPort        string
 	natsURL         string
 	question        string
+	secretKey       string
 	utilityName     = "Submit Question"
 	testingOn       bool
 	//
@@ -53,7 +52,6 @@ func init() {
 	flaggy.DefaultParser.AdditionalHelpPrepend = "https://github.com/sty-holdings/utilities"
 
 	// Add a flag to the main program (this will be available in all subcommands as well).
-	flaggy.Bool(&enterQuestion, "e", "enter", "You want to submit a question. If this is not set, training questions will be processed.")
 	flaggy.String(&fbCredentials, "f", "fbcred", "The filename of your firebase credentials.")
 	flaggy.String(&natsCABundle, "a", "ncabun", "The filename of your NATS SSL CA Bundle.")
 	flaggy.String(&natsCertificate, "c", "ncert", "The filename of your NATS SSL certificate.")
@@ -61,7 +59,8 @@ func init() {
 	flaggy.String(&natsCredentials, "n", "ncreds", "The filename of your NATS credentials.")
 	flaggy.String(&natsPort, "p", "nport", "The NATS port to connect to the NATS Server.")
 	flaggy.String(&natsURL, "u", "nurl", "The the URL for the NATS Server.")
-	flaggy.String(&question, "q", "question", "Question your submitting.")
+	flaggy.String(&question, "q", "question", "Question your submitting. Base64 if decrypting the message.")
+	flaggy.String(&secretKey, "s", "secret", "Secret key (base64) to encrypt your message.")
 	flaggy.Bool(&testingOn, "t", "testingOn", "This puts the server into testing mode.")
 
 	// Set the version and parse all inputs into variables.
@@ -73,18 +72,21 @@ func main() {
 
 	var (
 		errorInfo     errs.ErrorInfo
+		eQuestion     string
 		tInstanceName string
+		tMessagePtr   *nats.Msg
 		tNATSConfig   ns.NATSConfiguration
 		tNATSConnPtr  *nats.Conn
+		tResponsePtr  *nats.Msg
 	)
 
 	fmt.Println()
 
-	if enterQuestion && question == ctv.VAL_EMPTY {
+	if question == ctv.VAL_EMPTY {
 		flaggy.ShowHelpAndExit("You must provide a question.")
 	}
 
-	if fbCredentials == ctv.VAL_EMPTY {
+	if fbCredentials == ctv.VAL_EMPTY && question == ctv.VAL_EMPTY {
 		flaggy.ShowHelpAndExit("When you are not entering a question, you must provide a credentials filename.")
 		os.Exit(1)
 	}
@@ -132,8 +134,17 @@ func main() {
 		os.Exit(1)
 	}
 
-	if enterQuestion {
-		// Send single question
+	if question != ctv.VAL_EMPTY {
+		if eQuestion, errorInfo = encryptQuestion(secretKey, question); errorInfo.Error != nil {
+			errs.PrintErrorInfo(errorInfo)
+			return
+		}
+		if tResponsePtr, errorInfo = sendRequest(tNATSConnPtr, tInstanceName, tMessagePtr, eQuestion); errorInfo.Error != nil {
+			errs.PrintErrorInfo(errorInfo)
+			return
+		}
+		fmt.Printf("Reply: %s\n", string(tResponsePtr.Data))
+		os.Exit(0)
 	}
 
 	processTrainingData(fbCredentials, tNATSConnPtr, tInstanceName)
@@ -158,11 +169,11 @@ func processTrainingData(fbCredentials string, natsConnPtr *nats.Conn, tInstance
 		errs.PrintErrorInfo(errorInfo)
 		return
 	}
-	if tFSClientPtr, errorInfo = fss.GetFirestoreClientConnection(tAppPtr); errorInfo.Error != nil {
+	if tFSClientPtr, errorInfo = fbs.GetFirestoreClientConnection(tAppPtr); errorInfo.Error != nil {
 		errs.PrintErrorInfo(errorInfo)
 		return
 	}
-	if tDocRefPtr, errorInfo = fss.GetAllDocuments(tFSClientPtr, ctv.DATASTORE_TRAINING_QUESTIONS); errorInfo.Error != nil {
+	if tDocRefPtr, errorInfo = fbs.GetAllDocuments(tFSClientPtr, ctv.DATASTORE_TRAINING_QUESTIONS); errorInfo.Error != nil {
 		errs.PrintErrorInfo(errorInfo)
 		return
 	}
@@ -179,7 +190,7 @@ func processTrainingData(fbCredentials string, natsConnPtr *nats.Conn, tInstance
 		fmt.Printf("Document ID: %s, Category: %s, Question: %s\n", snapshot.Ref.ID, data[ctv.FN_CATEGORY], data[ctv.FN_QUESTION])
 
 		// Encrypt Question (Decrypt in TESTING Mode)
-		if eQuestion, errorInfo = encryptQuestion(data[ctv.FN_QUESTION].(string)); errorInfo.Error != nil {
+		if eQuestion, errorInfo = encryptQuestion(secretKey, data[ctv.FN_QUESTION].(string)); errorInfo.Error != nil {
 			errs.PrintErrorInfo(errorInfo)
 			return
 		}
@@ -200,7 +211,7 @@ func processTrainingData(fbCredentials string, natsConnPtr *nats.Conn, tInstance
 			errs.PrintErrorInfo(errorInfo)
 			os.Exit(1)
 		}
-		fmt.Printf("Request Response: %+v\n", tResponsePtr.Data)
+		fmt.Printf("Reply: %+v\n", tResponsePtr.Data)
 	}
 
 	return
@@ -249,14 +260,25 @@ func decryptQuestion(question string) (dMessage string, errorInfo errs.ErrorInfo
 	return
 }
 
-func encryptQuestion(question string) (eMessage string, errorInfo errs.ErrorInfo) {
+func encryptQuestion(secretKey string, question string) (eMessage string, errorInfo errs.ErrorInfo) {
 
-	var (
-		tSecretKeyB64 = "BWzIo8nzg/QTkwds8dcjKg=="
-	)
-
-	if eMessage, errorInfo = jwts.Encrypt(username, tSecretKeyB64, question); errorInfo.Error != nil {
+	if eMessage, errorInfo = jwts.Encrypt(username, secretKey, question); errorInfo.Error != nil {
 		errs.PrintErrorInfo(errorInfo)
+	}
+
+	return
+}
+
+func sendRequest(natsConnPtr *nats.Conn, tInstanceName string, tMessagePtr *nats.Msg, eQuestion string) (tResponsePtr *nats.Msg, errorInfo errs.ErrorInfo) {
+
+	// Send NATS request
+	if tMessagePtr, errorInfo = buildNATSMessage(eQuestion); errorInfo.Error != nil {
+		errs.PrintErrorInfo(errorInfo)
+		return
+	}
+	if tResponsePtr, errorInfo = ns.RequestWithHeader(natsConnPtr, tInstanceName, tMessagePtr, 2); errorInfo.Error != nil {
+		errs.PrintErrorInfo(errorInfo)
+		os.Exit(1)
 	}
 
 	return
