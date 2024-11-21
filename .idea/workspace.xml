@@ -31,6 +31,7 @@
   "keyToString": {
     "Go Build.Decrypt / Encrypt Message.executor": "Run",
     "Go Build.Decrypt Message.executor": "Run",
+    "Go Build.Encrypt Message.executor": "Run",
     "Go Build.Submit Questions.executor": "Run",
     "Go Build.Submit Single Questions.executor": "Run",
     "Go Build.Submit Training Questions.executor": "Debug",
@@ -52,8 +53,9 @@
     <configuration name="Decrypt Message" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="utilities" />
       <working_directory value="$PROJECT_DIR$/go/encrypt-decrypt" />
-      <parameters value="-k &quot;BWzIo8nzg/QTkwds8dcjKg==&quot; -m &quot;EczqAXXBe6Za2fNsnoeS3Hcm3nGvWgV5niVEttslAtzCbCF0hmqhVIv9v999IEnqJhz1CkO5nRwJXQ==&quot; -d" />
+      <parameters value="-k &quot;BWzIo8nzg/QTkwds8dcjKg==&quot; -m &quot;mesMdkukeNA5T+PyGcz5AskvrZiPG+CemmbuxEzXsdA+mFvWUJVjML+4&quot; -d" />
       <kind value="FILE" />
+      <package value="encrypt-decrypt" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$/go/encrypt-decrypt/main.go" />
       <method v="2" />
@@ -67,10 +69,20 @@
       <filePath value="$PROJECT_DIR$/go/encrypt-decrypt/main.go" />
       <method v="2" />
     </configuration>
+    <configuration name="Encrypt Message" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="utilities" />
+      <working_directory value="$PROJECT_DIR$/go/encrypt-decrypt" />
+      <parameters value="-k &quot;BWzIo8nzg/QTkwds8dcjKg==&quot; -m &quot;Thiiiiiiis is ooooooo test 22222211111444443333  &amp;&amp;&amp;&amp;  ((((  &quot; -e" />
+      <kind value="FILE" />
+      <package value="encrypt-decrypt" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/go/encrypt-decrypt/main.go" />
+      <method v="2" />
+    </configuration>
     <configuration name="Submit Single Questions" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="utilities" />
       <working_directory value="$PROJECT_DIR$/go/submit-questions" />
-      <parameters value="-a /Volumes/development-share/.keys/sty-holdings.net/local/local_sty-holdings_net/local_sty-holdings_net_CAbundle.crt -c /Volumes/development-share/.keys/sty-holdings.net/local/local_sty-holdings_net/local_sty-holdings_net.crt -k /Volumes/development-share/.keys/sty-holdings.net/local/local_sty-holdings_net/local-sty-holdings-net-private.key -n $USER_HOME$/.local/share/nats/nsc/keys/creds/styh/US-WEST/connect-server-US-WEST.creds -p 4222 -u local.sty-holdings.net -q &quot;What is the temperature today?&quot; -s &quot;BWzIo8nzg/QTkwds8dcjKg==&quot;" />
+      <parameters value="-a /Volumes/development-share/.keys/sty-holdings.net/local/local_sty-holdings_net/local_sty-holdings_net_CAbundle.crt -c /Volumes/development-share/.keys/sty-holdings.net/local/local_sty-holdings_net/local_sty-holdings_net.crt -k /Volumes/development-share/.keys/sty-holdings.net/local/local_sty-holdings_net/local-sty-holdings-net-private.key -n $USER_HOME$/.local/share/nats/nsc/keys/creds/styh/US-WEST/connect-server-US-WEST.creds -p 4222 -u local.sty-holdings.net -q &quot;What is the temperature today?&quot; -s &quot;BWzIo8nzg/QTkwds8dcjKg==&quot; -g A" />
       <kind value="FILE" />
       <package value="submit-questions" />
       <directory value="$PROJECT_DIR$" />
@@ -93,6 +105,7 @@
     </configuration>
     <list>
       <item itemvalue="Go Build.Decrypt Message" />
+      <item itemvalue="Go Build.Encrypt Message" />
       <item itemvalue="Go Build.Decrypt / Encrypt Message" />
       <item itemvalue="Go Build.Submit Single Questions" />
       <item itemvalue="Go Build.Submit Training Questions" />
@@ -118,13 +131,8 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/go/submit-questions/main.go</url>
-          <line>268</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/go/submit-questions/main.go</url>
-          <line>136</line>
-          <option name="timeStamp" value="4" />
+          <line>254</line>
+          <option name="timeStamp" value="9" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -30,6 +30,7 @@ var (
 	natsPort        string
 	natsURL         string
 	question        string
+	analyzeProcess  string
 	secretKey       string
 	utilityName     = "Submit Question"
 	testingOn       bool
@@ -52,16 +53,17 @@ func init() {
 	flaggy.DefaultParser.AdditionalHelpPrepend = "https://github.com/sty-holdings/utilities"
 
 	// Add a flag to the main program (this will be available in all subcommands as well).
-	flaggy.String(&fbCredentials, "f", "fbcred", "The filename of your firebase credentials.")
 	flaggy.String(&natsCABundle, "a", "ncabun", "The filename of your NATS SSL CA Bundle.")
 	flaggy.String(&natsCertificate, "c", "ncert", "The filename of your NATS SSL certificate.")
+	flaggy.String(&fbCredentials, "f", "fbcred", "The filename of your firebase credentials.")
+	flaggy.String(&analyzeProcess, "g", "answer", "Do you want to analyze or process the question? 'A' | 'P'. 'P' required -f.")
 	flaggy.String(&natsCertKey, "k", "nkey", "The filename of your NATS SSL certificate key (Private key).")
 	flaggy.String(&natsCredentials, "n", "ncreds", "The filename of your NATS credentials.")
 	flaggy.String(&natsPort, "p", "nport", "The NATS port to connect to the NATS Server.")
-	flaggy.String(&natsURL, "u", "nurl", "The the URL for the NATS Server.")
-	flaggy.String(&question, "q", "question", "Question your submitting. Base64 if decrypting the message.")
+	flaggy.String(&question, "q", "question", "Submit a question.")
 	flaggy.String(&secretKey, "s", "secret", "Secret key (base64) to encrypt your message.")
 	flaggy.Bool(&testingOn, "t", "testingOn", "This puts the server into testing mode.")
+	flaggy.String(&natsURL, "u", "nurl", "The the URL for the NATS Server.")
 
 	// Set the version and parse all inputs into variables.
 	flaggy.Parse()
@@ -72,12 +74,9 @@ func main() {
 
 	var (
 		errorInfo     errs.ErrorInfo
-		eQuestion     string
 		tInstanceName string
-		tMessagePtr   *nats.Msg
 		tNATSConfig   ns.NATSConfiguration
 		tNATSConnPtr  *nats.Conn
-		tResponsePtr  *nats.Msg
 	)
 
 	fmt.Println()
@@ -134,33 +133,40 @@ func main() {
 		os.Exit(1)
 	}
 
-	if question != ctv.VAL_EMPTY {
-		if eQuestion, errorInfo = encryptQuestion(secretKey, question); errorInfo.Error != nil {
-			errs.PrintErrorInfo(errorInfo)
-			return
-		}
-		if tResponsePtr, errorInfo = sendRequest(tNATSConnPtr, tInstanceName, tMessagePtr, eQuestion); errorInfo.Error != nil {
-			errs.PrintErrorInfo(errorInfo)
-			return
-		}
-		fmt.Printf("Reply: %s\n", string(tResponsePtr.Data))
-		os.Exit(0)
+	if errorInfo = determineProcess(tNATSConnPtr, tInstanceName, analyzeProcess, question); errorInfo.Error != nil {
+		errs.PrintErrorInfo(errorInfo)
+		os.Exit(1)
 	}
-
-	processTrainingData(fbCredentials, tNATSConnPtr, tInstanceName)
 }
 
-func processTrainingData(fbCredentials string, natsConnPtr *nats.Conn, tInstanceName string) {
+func determineProcess(natsConnPtr *nats.Conn, instanceName string, analyzeProcess string, question string) (errorInfo errs.ErrorInfo) {
+
+	var (
+		//tInstanceName string
+		tResponse string
+	)
+
+	if question == ctv.VAL_EMPTY && fbCredentials != ctv.VAL_EMPTY {
+		processTrainingData(fbCredentials, natsConnPtr, instanceName)
+	}
+
+	if tResponse, errorInfo = sendRequest(natsConnPtr, instanceName, analyzeProcess, question); errorInfo.Error != nil {
+		errs.PrintErrorInfo(errorInfo)
+		return
+	}
+	fmt.Printf("Reply: %s\n", tResponse)
+
+	return
+}
+
+func processTrainingData(fbCredentials string, natsConnPtr *nats.Conn, instanceName string) {
 
 	var (
 		errorInfo    errs.ErrorInfo
-		eQuestion    string
-		dQuestion    string
 		tAppPtr      *firebase.App
 		tDocRefPtr   []*firestore.DocumentSnapshot
 		tFSClientPtr *firestore.Client
-		tMessagePtr  *nats.Msg
-		tResponsePtr *nats.Msg
+		tResponse    string
 	)
 
 	fmt.Println()
@@ -189,97 +195,68 @@ func processTrainingData(fbCredentials string, natsConnPtr *nats.Conn, tInstance
 		// Access data fields using their key, e.g.:
 		fmt.Printf("Document ID: %s, Category: %s, Question: %s\n", snapshot.Ref.ID, data[ctv.FN_CATEGORY], data[ctv.FN_QUESTION])
 
-		// Encrypt Question (Decrypt in TESTING Mode)
-		if eQuestion, errorInfo = encryptQuestion(secretKey, data[ctv.FN_QUESTION].(string)); errorInfo.Error != nil {
-			errs.PrintErrorInfo(errorInfo)
-			return
-		}
-		if testingOn {
-			if dQuestion, errorInfo = decryptQuestion(eQuestion); errorInfo.Error != nil {
-				errs.PrintErrorInfo(errorInfo)
-				return
-			}
-			fmt.Printf("(TESTING only) Decrypted Quesiton: %s\n", dQuestion)
-		}
-
-		// Send NATS request
-		if tMessagePtr, errorInfo = buildNATSMessage(eQuestion); errorInfo.Error != nil {
-			errs.PrintErrorInfo(errorInfo)
-			return
-		}
-		if tResponsePtr, errorInfo = ns.RequestWithHeader(natsConnPtr, tInstanceName, tMessagePtr, 2); errorInfo.Error != nil {
+		if tResponse, errorInfo = sendRequest(natsConnPtr, instanceName, "P", data[ctv.FN_QUESTION].(string)); errorInfo.Error != nil {
 			errs.PrintErrorInfo(errorInfo)
 			os.Exit(1)
 		}
-		fmt.Printf("Reply: %+v\n", tResponsePtr.Data)
+
+		fmt.Printf("Reply: %+v\n", tResponse)
 	}
 
 	return
 }
 
-func buildNATSMessage(eQuestion string) (messagePtr *nats.Msg, errorInfo errs.ErrorInfo) {
+func sendRequest(natsConnPtr *nats.Conn, instanceName string, analyzeProcess string, question string) (response string, errorInfo errs.ErrorInfo) {
 
 	var (
-		tSTYHClientIdB64 = "912c2c2c-a1f7-11ef-852b-85093fa0b49a"
-		tQuestionJSON    []byte
+		dMessage             string
+		tSTYHClientIdB64     = "912c2c2c-a1f7-11ef-852b-85093fa0b49a"
+		tQuestionJSON        []byte
+		tEncryptedMessageB64 string
+		tMessagePtr          *nats.Msg
+		tReplyPtr            *nats.Msg
+		tResponsePtr         *ns.NATSReply
 	)
 
-	if eQuestion == ctv.VAL_EMPTY {
-		errs.PrintError(errs.ErrRequiredArgumentMissing, ctv.VAL_EMPTY)
-		return
+	if tEncryptedMessageB64, errorInfo = jwts.Encrypt(username, secretKey, question); errorInfo.Error != nil {
+		errs.PrintErrorInfo(errorInfo)
 	}
+
 	if tQuestionJSON, errorInfo.Error = json.Marshal(
-		ns.AnalyzeQuestionRequest{Question: eQuestion},
+		ns.AnalyzeQuestionRequest{Question: tEncryptedMessageB64},
 	); errorInfo.Error != nil {
 		errs.PrintError(errs.ErrMessageJSONInvalid, ctv.VAL_EMPTY)
 		return
 	}
 
-	// ToDo move to yaml config file or user login and pull from Firebase|firestore|storage
-	messagePtr = &nats.Msg{
-		Subject: ctv.SUB_GEMINI_ANALYZE_QUESTION,
-		Header:  make(nats.Header),
-		Data:    tQuestionJSON,
+	tMessagePtr = &nats.Msg{
+		Header: make(nats.Header),
+		Data:   tQuestionJSON,
 	}
-	messagePtr.Header.Add(ctv.FN_USERNAME, username)
-	messagePtr.Header.Add(ctv.FN_STYH_CLIENT_ID, tSTYHClientIdB64)
+	tMessagePtr.Header.Add(ctv.FN_USERNAME, username)
+	tMessagePtr.Header.Add(ctv.FN_STYH_CLIENT_ID, tSTYHClientIdB64)
 
-	return
-}
-
-func decryptQuestion(question string) (dMessage string, errorInfo errs.ErrorInfo) {
-
-	var (
-		tSecretKeyB64 = "BWzIo8nzg/QTkwds8dcjKg=="
-	)
-
-	if dMessage, errorInfo = jwts.Decrypt(username, tSecretKeyB64, question); errorInfo.Error != nil {
-		errs.PrintErrorInfo(errorInfo)
+	if analyzeProcess == "P" {
+		tMessagePtr.Subject = ctv.SUB_GEMINI_GET_MY_ANSWER
+	} else {
+		tMessagePtr.Subject = ctv.SUB_GEMINI_ANALYZE_QUESTION
 	}
 
-	return
-}
-
-func encryptQuestion(secretKey string, question string) (eMessage string, errorInfo errs.ErrorInfo) {
-
-	if eMessage, errorInfo = jwts.Encrypt(username, secretKey, question); errorInfo.Error != nil {
-		errs.PrintErrorInfo(errorInfo)
-	}
-
-	return
-}
-
-func sendRequest(natsConnPtr *nats.Conn, tInstanceName string, tMessagePtr *nats.Msg, eQuestion string) (tResponsePtr *nats.Msg, errorInfo errs.ErrorInfo) {
-
-	// Send NATS request
-	if tMessagePtr, errorInfo = buildNATSMessage(eQuestion); errorInfo.Error != nil {
+	if tReplyPtr, errorInfo = ns.RequestWithHeader(natsConnPtr, instanceName, tMessagePtr, 3); errorInfo.Error != nil {
 		errs.PrintErrorInfo(errorInfo)
 		return
 	}
-	if tResponsePtr, errorInfo = ns.RequestWithHeader(natsConnPtr, tInstanceName, tMessagePtr, 2); errorInfo.Error != nil {
+
+	if errorInfo = ns.UnmarshalMessageData("sendRequest", tReplyPtr, &tResponsePtr); errorInfo.Error != nil {
 		errs.PrintErrorInfo(errorInfo)
-		os.Exit(1)
+		return
 	}
+
+	if dMessage, errorInfo = jwts.Decrypt(username, secretKey, tResponsePtr.Response.(string)); errorInfo.Error != nil {
+		errs.PrintErrorInfo(errorInfo)
+		return
+	}
+	fmt.Printf("Decrypted Response: %s\n", dMessage)
 
 	return
 }
