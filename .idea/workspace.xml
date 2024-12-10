@@ -5,7 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9bc63044-a312-46f5-85b3-df06fef891e9" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/go/csp-admin/config/local.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/go/csp-admin/config/mac.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/go/csp-admin/go.mod" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/go/csp-admin/go.sum" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/go/csp-admin/main.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/go/submit-questions/config/local.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/go/submit-questions/config/mac.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go/encrypt-decrypt/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go/encrypt-decrypt/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go/encrypt-decrypt/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go/encrypt-decrypt/go.sum" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go/submit-questions/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go/submit-questions/go.mod" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go/submit-questions/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go/submit-questions/go.sum" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go/submit-questions/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/go/submit-questions/main.go" afterDir="false" />
@@ -29,12 +38,24 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Go Build.Analyze Question.executor": "Run",
+    "Go Build.CSP Admin - Add.executor": "Debug",
+    "Go Build.CSP Admin - Delete.executor": "Debug",
+    "Go Build.CSP Admin - List.executor": "Run",
     "Go Build.Decrypt / Encrypt Message.executor": "Run",
     "Go Build.Decrypt Message.executor": "Run",
     "Go Build.Encrypt Message.executor": "Run",
+    "Go Build.Get My Answer.executor": "Run",
     "Go Build.Submit Questions.executor": "Run",
-    "Go Build.Submit Single Questions.executor": "Run",
+    "Go Build.Submit Single Questions.executor": "Debug",
     "Go Build.Submit Training Questions.executor": "Debug",
+    "Go Build.Test Questions .executor": "Run",
+    "Go Build.local - Submit Single Questions.executor": "Debug",
+    "Go Build.local - Test Questions .executor": "Run",
+    "Go Build.mac - Analyze Question.executor": "Run",
+    "Go Build.mac - Get My Answer.executor": "Run",
+    "Go Build.mac - Submit Single Questions .executor": "Run",
+    "Go Build.mac - Test Questions .executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.go.formatter.settings.were.checked": "true",
     "RunOnceActivity.go.migrated.go.modules.settings": "true",
@@ -42,15 +63,62 @@
     "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
     "git-widget-placeholder": "main",
     "go.import.settings.migrated": "true",
-    "last_opened_file_path": "/Users/syacko",
+    "last_opened_file_path": "/Users/syacko/workspace/sty-holdings/utilities/go",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "preferences.lookFeel"
   }
 }]]></component>
-  <component name="RunManager" selected="Go Build.Submit Single Questions">
-    <configuration name="Decrypt Message" type="GoApplicationRunConfiguration" factoryName="Go Application">
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/go" />
+      <recent name="$PROJECT_DIR$/go/submit-questions/config" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Go Build.CSP Admin - List">
+    <configuration name="Analyze Question" type="GoApplicationRunConfiguration" factoryName="Go Application" folderName="Questions">
+      <module name="utilities" />
+      <working_directory value="$PROJECT_DIR$/go/submit-questions" />
+      <parameters value="-a S -c config/mac.yaml -q &quot;What are their pain points?&quot; -s &quot;BWzIo8nzg/QTkwds8dcjKg==&quot;" />
+      <kind value="FILE" />
+      <package value="submit-questions" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/go/submit-questions/main.go" />
+      <method v="2">
+        <option name="ToolBeforeRunTask" enabled="true" actionId="Tool_External Tools_Get STYH Packages" />
+      </method>
+    </configuration>
+    <configuration name="CSP Admin - Add" type="GoApplicationRunConfiguration" factoryName="Go Application" folderName="CSP Admin">
+      <module name="utilities" />
+      <working_directory value="$PROJECT_DIR$/go/csp-admin" />
+      <parameters value="-a A -c config/mac.yaml -g sales -s sales_operations -p qb" />
+      <kind value="FILE" />
+      <package value="submit-questions" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/go/csp-admin/main.go" />
+      <method v="2" />
+    </configuration>
+    <configuration name="CSP Admin - Delete" type="GoApplicationRunConfiguration" factoryName="Go Application" folderName="CSP Admin">
+      <module name="utilities" />
+      <working_directory value="$PROJECT_DIR$/go/csp-admin" />
+      <parameters value="-a d -c config/mac.yaml -g sales -s sales_operations -p qb" />
+      <kind value="FILE" />
+      <package value="submit-questions" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/go/csp-admin/main.go" />
+      <method v="2" />
+    </configuration>
+    <configuration name="CSP Admin - List" type="GoApplicationRunConfiguration" factoryName="Go Application" folderName="CSP Admin">
+      <module name="utilities" />
+      <working_directory value="$PROJECT_DIR$/go/csp-admin" />
+      <parameters value="-a L -c config/mac.yaml" />
+      <kind value="FILE" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/go/csp-admin/main.go" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Decrypt Message" type="GoApplicationRunConfiguration" factoryName="Go Application" folderName="Crypto Services">
       <module name="utilities" />
       <working_directory value="$PROJECT_DIR$/go/encrypt-decrypt" />
       <parameters value="-k &quot;BWzIo8nzg/QTkwds8dcjKg==&quot; -m &quot;mesMdkukeNA5T+PyGcz5AskvrZiPG+CemmbuxEzXsdA+mFvWUJVjML+4&quot; -d" />
@@ -60,16 +128,17 @@
       <filePath value="$PROJECT_DIR$/go/encrypt-decrypt/main.go" />
       <method v="2" />
     </configuration>
-    <configuration name="Decrypt / Encrypt Message" type="GoApplicationRunConfiguration" factoryName="Go Application">
+    <configuration name="Decrypt / Encrypt Message" type="GoApplicationRunConfiguration" factoryName="Go Application" folderName="Crypto Services">
       <module name="utilities" />
       <working_directory value="$PROJECT_DIR$/go/encrypt-decrypt" />
       <parameters value="-k &quot;BWzIo8nzg/QTkwds8dcjKg==&quot; -m &quot;What is the temperature today?&quot; -e -d" />
       <kind value="FILE" />
+      <package value="encrypt-decrypt" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$/go/encrypt-decrypt/main.go" />
       <method v="2" />
     </configuration>
-    <configuration name="Encrypt Message" type="GoApplicationRunConfiguration" factoryName="Go Application">
+    <configuration name="Encrypt Message" type="GoApplicationRunConfiguration" factoryName="Go Application" folderName="Crypto Services">
       <module name="utilities" />
       <working_directory value="$PROJECT_DIR$/go/encrypt-decrypt" />
       <parameters value="-k &quot;BWzIo8nzg/QTkwds8dcjKg==&quot; -m &quot;Thiiiiiiis is ooooooo test 22222211111444443333  &amp;&amp;&amp;&amp;  ((((  &quot; -e" />
@@ -79,10 +148,10 @@
       <filePath value="$PROJECT_DIR$/go/encrypt-decrypt/main.go" />
       <method v="2" />
     </configuration>
-    <configuration name="Submit Single Questions" type="GoApplicationRunConfiguration" factoryName="Go Application">
+    <configuration name="Get My Answer" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="utilities" />
       <working_directory value="$PROJECT_DIR$/go/submit-questions" />
-      <parameters value="-a /Volumes/development-share/.keys/sty-holdings.net/local/local_sty-holdings_net/local_sty-holdings_net_CAbundle.crt -c /Volumes/development-share/.keys/sty-holdings.net/local/local_sty-holdings_net/local_sty-holdings_net.crt -k /Volumes/development-share/.keys/sty-holdings.net/local/local_sty-holdings_net/local-sty-holdings-net-private.key -n $USER_HOME$/.local/share/nats/nsc/keys/creds/styh/US-WEST/connect-server-US-WEST.creds -p 4222 -u local.sty-holdings.net -q &quot;What is the temperature today?&quot; -s &quot;BWzIo8nzg/QTkwds8dcjKg==&quot; -g A" />
+      <parameters value="-a G -c config/mac.yaml -q &quot;How mush did I sell today?&quot; -s &quot;BWzIo8nzg/QTkwds8dcjKg==&quot;" />
       <kind value="FILE" />
       <package value="submit-questions" />
       <directory value="$PROJECT_DIR$" />
@@ -91,7 +160,7 @@
         <option name="ToolBeforeRunTask" enabled="true" actionId="Tool_External Tools_Get STYH Packages" />
       </method>
     </configuration>
-    <configuration name="Submit Training Questions" type="GoApplicationRunConfiguration" factoryName="Go Application">
+    <configuration name="Submit Training Questions" type="GoApplicationRunConfiguration" factoryName="Go Application" folderName="Questions">
       <module name="utilities" />
       <working_directory value="$PROJECT_DIR$/go/submit-questions" />
       <parameters value="-f /Volumes/development-share/.keys/com.styholdings.dkanswers/google/service-account-key/dkanswers-key.json -a /Volumes/development-share/.keys/sty-holdings.net/local/local_sty-holdings_net/local_sty-holdings_net_CAbundle.crt -c /Volumes/development-share/.keys/sty-holdings.net/local/local_sty-holdings_net/local_sty-holdings_net.crt -k /Volumes/development-share/.keys/sty-holdings.net/local/local_sty-holdings_net/local-sty-holdings-net-private.key -n $USER_HOME$/.local/share/nats/nsc/keys/creds/styh/US-WEST/connect-server-US-WEST.creds -p 4222 -u local.sty-holdings.net -s &quot;BWzIo8nzg/QTkwds8dcjKg==&quot;" />
@@ -103,12 +172,29 @@
         <option name="ToolBeforeRunTask" enabled="true" actionId="Tool_External Tools_Get STYH Packages" />
       </method>
     </configuration>
+    <configuration name="Test Questions " type="GoApplicationRunConfiguration" factoryName="Go Application" folderName="Questions">
+      <module name="utilities" />
+      <working_directory value="$PROJECT_DIR$/go/submit-questions" />
+      <parameters value="-a T -c config/mac.yaml -q &quot;What is the temperature today?&quot; -s &quot;BWzIo8nzg/QTkwds8dcjKg==&quot;" />
+      <kind value="FILE" />
+      <package value="submit-questions" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/go/submit-questions/main.go" />
+      <method v="2">
+        <option name="ToolBeforeRunTask" enabled="true" actionId="Tool_External Tools_Get STYH Packages" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue="Go Build.Decrypt Message" />
-      <item itemvalue="Go Build.Encrypt Message" />
       <item itemvalue="Go Build.Decrypt / Encrypt Message" />
-      <item itemvalue="Go Build.Submit Single Questions" />
+      <item itemvalue="Go Build.Encrypt Message" />
+      <item itemvalue="Go Build.CSP Admin - Add" />
+      <item itemvalue="Go Build.CSP Admin - Delete" />
+      <item itemvalue="Go Build.CSP Admin - List" />
+      <item itemvalue="Go Build.Test Questions " />
+      <item itemvalue="Go Build.Analyze Question" />
       <item itemvalue="Go Build.Submit Training Questions" />
+      <item itemvalue="Go Build.Get My Answer" />
     </list>
   </component>
   <component name="SharedIndexes">
@@ -130,11 +216,21 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/go/submit-questions/main.go</url>
-          <line>254</line>
-          <option name="timeStamp" value="9" />
+          <url>file://$PROJECT_DIR$/go/csp-admin/main.go</url>
+          <line>183</line>
+          <option name="timeStamp" value="24" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/go/csp-admin/main.go</url>
+          <line>217</line>
+          <option name="timeStamp" value="25" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="GoApplicationRunConfiguration">
+        <watch expression="saasProviders" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>
