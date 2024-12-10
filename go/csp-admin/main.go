@@ -21,6 +21,7 @@ import (
 	ctv "github.com/sty-holdings/sharedServices/v2024/constantsTypesVars"
 	errs "github.com/sty-holdings/sharedServices/v2024/errorServices"
 	fbs "github.com/sty-holdings/sharedServices/v2024/firebaseServices"
+	hlps "github.com/sty-holdings/sharedServices/v2024/helpers"
 )
 
 type Config struct {
@@ -101,7 +102,12 @@ func main() {
 		return
 	}
 
-	pullSupportSaaSProviders(tFSClientPtr)
+	if saasProviders, errorInfo = hlps.PullSupportSaaSProviders(tFSClientPtr); errorInfo.Error != nil {
+		if !errors.Is(errs.ErrDocumentNotFound, errorInfo.Error) {
+			errs.PrintErrorInfo(errorInfo)
+			return
+		}
+	}
 
 	switch action {
 	case "A":
@@ -118,7 +124,6 @@ func main() {
 	if errorInfo = fbs.SetDocument(tFSClientPtr, ctv.DATASTORE_REFERENCE_DATA, ctv.REF_SUPPORT_SAAS_PROVIDERS, map[any]interface{}{ctv.FN_JSON_STRING: string(tData)}); errorInfo.Error != nil {
 		errs.PrintErrorInfo(errorInfo)
 	}
-
 }
 
 func checkNotEmpty(value string, message string) {
@@ -145,32 +150,6 @@ func loadConfig(configFilename string) (config Config, errorInfo errs.ErrorInfo)
 
 	decoder := yaml.NewDecoder(tConfigFile)
 	errorInfo.Error = decoder.Decode(&config)
-
-	return
-}
-
-func pullSupportSaaSProviders(tFSClientPtr *firestore.Client) {
-
-	var (
-		errorInfo            errs.ErrorInfo
-		tData                interface{}
-		tDocumentSnapshotPtr *firestore.DocumentSnapshot
-		//tSupportSaaSProviders string
-	)
-
-	if tDocumentSnapshotPtr, errorInfo = fbs.GetDocumentById(tFSClientPtr, ctv.DATASTORE_REFERENCE_DATA, ctv.REF_SUPPORT_SAAS_PROVIDERS); errorInfo.Error != nil {
-		if errors.Is(errorInfo.Error, errs.ErrDocumentNotFound) {
-			return
-		}
-		errs.PrintErrorInfo(errorInfo)
-		return
-	}
-
-	if tData, errorInfo.Error = tDocumentSnapshotPtr.DataAt(ctv.FN_JSON_STRING); errorInfo.Error != nil {
-		errs.PrintErrorInfo(errorInfo)
-		return
-	}
-	errorInfo.Error = json.Unmarshal([]byte(tData.(string)), &saasProviders)
 
 	return
 }

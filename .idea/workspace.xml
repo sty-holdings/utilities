@@ -5,19 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9bc63044-a312-46f5-85b3-df06fef891e9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/go/csp-admin/config/local.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/go/csp-admin/config/mac.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/go/csp-admin/go.mod" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/go/csp-admin/go.sum" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/go/csp-admin/main.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/go/submit-questions/config/local.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/go/submit-questions/config/mac.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go/encrypt-decrypt/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go/encrypt-decrypt/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go/encrypt-decrypt/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go/encrypt-decrypt/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go/submit-questions/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go/submit-questions/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go/submit-questions/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go/submit-questions/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go/submit-questions/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/go/submit-questions/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go/csp-admin/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go/csp-admin/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go/csp-admin/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go/csp-admin/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go/csp-admin/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/go/csp-admin/main.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,8 +30,8 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Go Build.Analyze Question.executor": "Run",
-    "Go Build.CSP Admin - Add.executor": "Debug",
-    "Go Build.CSP Admin - Delete.executor": "Debug",
+    "Go Build.CSP Admin - Add.executor": "Run",
+    "Go Build.CSP Admin - Delete.executor": "Run",
     "Go Build.CSP Admin - List.executor": "Run",
     "Go Build.Decrypt / Encrypt Message.executor": "Run",
     "Go Build.Decrypt Message.executor": "Run",
@@ -217,12 +208,12 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/go/csp-admin/main.go</url>
-          <line>183</line>
+          <line>162</line>
           <option name="timeStamp" value="24" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/go/csp-admin/main.go</url>
-          <line>217</line>
+          <line>196</line>
           <option name="timeStamp" value="25" />
         </line-breakpoint>
       </breakpoints>
