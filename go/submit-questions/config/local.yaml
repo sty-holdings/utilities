@@ -1,0 +1,2 @@
+firebase_credentials: "/Volumes/development-share/.keys/com.styholdings.dkanswers/google/service-account-key/dkanswers-key.json"  # The filename of your firebase credentials.
+testing_on: false  # This puts the server into testing mode.

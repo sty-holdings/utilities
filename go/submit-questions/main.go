@@ -3,7 +3,9 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"os"
+	"time"
 
 	"cloud.google.com/go/firestore"
 	firebase "firebase.google.com/go"
@@ -11,6 +13,7 @@ import (
 	"github.com/nats-io/nats.go"
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
+	"gopkg.in/yaml.v3"
 
 	ctv "github.com/sty-holdings/sharedServices/v2024/constantsTypesVars"
 	errs "github.com/sty-holdings/sharedServices/v2024/errorServices"
@@ -19,23 +22,28 @@ import (
 	ns "github.com/sty-holdings/sharedServices/v2024/natsSerices"
 )
 
+type Config struct {
+	FirebaseCredentials string `yaml:"firebase_credentials"` // The filename of your firebase credentials.
+	NatsInfo            struct {
+		CABundle       string `yaml:"ca_bundle"`       // The filename of your NATS SSL CA Bundle.
+		CertificateKey string `yaml:"certificate_key"` // The filename of your NATS SSL certificate key (Private key).
+		Certificate    string `yaml:"certificate"`     // The filename of your NATS SSL certificate.
+		Credentials    string `yaml:"credentials"`     // The filename of your NATS credentials.
+		Port           string `yaml:"port"`            // The NATS port to connect to the NATS Server.
+		URL            string `yaml:"url"`             // The URL for the NATS Server.
+	} `yaml:"nats_info"`
+	TestingOn bool `yaml:"testing_on"` // This puts the server into testing mode.
+}
+
 var (
-	// Add Variables here for the file (Remember, they are global)
-	// Start up values for a service
-	fbCredentials   string
-	natsCABundle    string
-	natsCertificate string
-	natsCertKey     string
-	natsCredentials string
-	natsPort        string
-	natsURL         string
-	question        string
-	analyzeProcess  string
-	secretKey       string
-	utilityName     = "Submit Question"
-	testingOn       bool
+	action         string
+	configFilename string
+	question       string
+	secretKey      string
+	testingOn      bool
+	userId         string
+	utilityName    = "Submit Question"
 	//
-	username = "6oEtPOwn9hN2gNRYmGDQY3QXwrF2"
 )
 
 func init() {
@@ -53,17 +61,12 @@ func init() {
 	flaggy.DefaultParser.AdditionalHelpPrepend = "https://github.com/sty-holdings/utilities"
 
 	// Add a flag to the main program (this will be available in all subcommands as well).
-	flaggy.String(&natsCABundle, "a", "ncabun", "The filename of your NATS SSL CA Bundle.")
-	flaggy.String(&natsCertificate, "c", "ncert", "The filename of your NATS SSL certificate.")
-	flaggy.String(&fbCredentials, "f", "fbcred", "The filename of your firebase credentials.")
-	flaggy.String(&analyzeProcess, "g", "answer", "Do you want to analyze or process the question? 'A' | 'P'. 'P' required -f.")
-	flaggy.String(&natsCertKey, "k", "nkey", "The filename of your NATS SSL certificate key (Private key).")
-	flaggy.String(&natsCredentials, "n", "ncreds", "The filename of your NATS credentials.")
-	flaggy.String(&natsPort, "p", "nport", "The NATS port to connect to the NATS Server.")
-	flaggy.String(&question, "q", "question", "Submit a question.")
+	flaggy.String(&action, "a", "answer", "G - Get My Answer | S - single question | T - Test Questions")
+	flaggy.String(&configFilename, "c", "config", "The directory and filename of the configuration file.")
+	flaggy.String(&question, "q", "question", "Submit a question. Only valid for 'G' and 'S' actions.")
 	flaggy.String(&secretKey, "s", "secret", "Secret key (base64) to encrypt your message.")
 	flaggy.Bool(&testingOn, "t", "testingOn", "This puts the server into testing mode.")
-	flaggy.String(&natsURL, "u", "nurl", "The the URL for the NATS Server.")
+	flaggy.String(&userId, "u", "userid", "The userid from the identity provider (Firebase Auth or AWS Cognito).")
 
 	// Set the version and parse all inputs into variables.
 	flaggy.Parse()
@@ -74,43 +77,38 @@ func main() {
 
 	var (
 		errorInfo     errs.ErrorInfo
+		tConfig       Config
 		tInstanceName string
 		tNATSConfig   ns.NATSConfiguration
 		tNATSConnPtr  *nats.Conn
+		tSubject      string
 	)
 
 	fmt.Println()
 
-	if question == ctv.VAL_EMPTY {
-		flaggy.ShowHelpAndExit("You must provide a question.")
+	switch action {
+	case "G":
+		tSubject = ctv.SUB_BRAIN_GET_MY_ANSWER
+		checkNotEmpty(question, "You must provide a question.")
+	case "S", "T":
+		tSubject = ctv.SUB_GEMINI_ANALYZE_QUESTION
+		if action == "S" { // Only check for question if action is "S"
+			checkNotEmpty(question, "You must provide a question.")
+		}
+	default:
+		flaggy.ShowHelpAndExit("The action is invalid.")
 	}
 
-	if fbCredentials == ctv.VAL_EMPTY && question == ctv.VAL_EMPTY {
-		flaggy.ShowHelpAndExit("When you are not entering a question, you must provide a credentials filename.")
-		os.Exit(1)
+	checkNotEmpty(configFilename, "You must provide a configuration filename.")
+	checkNotEmpty(secretKey, "You must provide the registered secret key for the user.")
+
+	if userId == ctv.VAL_EMPTY {
+		userId = "6oEtPOwn9hN2gNRYmGDQY3QXwrF2"
+		fmt.Printf("The default userId (%s) will be used.\n", userId)
 	}
-	if natsCABundle == ctv.VAL_EMPTY {
-		flaggy.ShowHelpAndExit("You must provide your NATS credentials filename.")
-		os.Exit(1)
-	}
-	if natsCertificate == ctv.VAL_EMPTY {
-		flaggy.ShowHelpAndExit("You must provide your NATS credentials filename.")
-		os.Exit(1)
-	}
-	if natsCertKey == ctv.VAL_EMPTY {
-		flaggy.ShowHelpAndExit("You must provide your NATS credentials filename.")
-		os.Exit(1)
-	}
-	if natsCredentials == ctv.VAL_EMPTY {
-		flaggy.ShowHelpAndExit("You must provide your NATS credentials filename.")
-		os.Exit(1)
-	}
-	if natsPort == ctv.VAL_EMPTY {
-		flaggy.ShowHelpAndExit("You must provide a port number.")
-		os.Exit(1)
-	}
-	if natsURL == ctv.VAL_EMPTY {
-		flaggy.ShowHelpAndExit("You must provide the NATS Server URL.")
+
+	if tConfig, errorInfo = loadConfig(configFilename); errorInfo.Error != nil {
+		errs.PrintErrorInfo(errorInfo)
 		os.Exit(1)
 	}
 
@@ -119,42 +117,56 @@ func main() {
 		os.Exit(1)
 	}
 	tNATSConfig = ns.NATSConfiguration{
-		NATSCredentialsFilename: natsCredentials,
-		NATSPort:                natsPort,
+		NATSCredentialsFilename: tConfig.NatsInfo.Credentials,
+		NATSPort:                tConfig.NatsInfo.Port,
 		NATSTLSInfo: jwts.TLSInfo{
-			TLSCertFQN:       natsCertificate,
-			TLSPrivateKeyFQN: natsCertKey,
-			TLSCABundleFQN:   natsCABundle,
+			TLSCertFQN:       tConfig.NatsInfo.Certificate,
+			TLSPrivateKeyFQN: tConfig.NatsInfo.CertificateKey,
+			TLSCABundleFQN:   tConfig.NatsInfo.CABundle,
 		},
-		NATSURL: natsURL,
+		NATSURL: tConfig.NatsInfo.URL,
 	}
 	if tNATSConnPtr, errorInfo = ns.GetConnection(tInstanceName, tNATSConfig); errorInfo.Error != nil {
 		errs.PrintErrorInfo(errorInfo)
 		os.Exit(1)
 	}
 
-	if errorInfo = determineProcess(tNATSConnPtr, tInstanceName, analyzeProcess, question); errorInfo.Error != nil {
+	if action == "T" {
+		processTrainingData(tConfig.FirebaseCredentials, tNATSConnPtr, tInstanceName)
+		return
+	}
+
+	fmt.Println("----------------------------")
+	fmt.Printf("Question: %s\n", question)
+	if _, errorInfo = sendRequest(tNATSConnPtr, tInstanceName, tSubject, question); errorInfo.Error != nil {
 		errs.PrintErrorInfo(errorInfo)
-		os.Exit(1)
 	}
 }
 
-func determineProcess(natsConnPtr *nats.Conn, instanceName string, analyzeProcess string, question string) (errorInfo errs.ErrorInfo) {
+func checkNotEmpty(value string, message string) {
+	if value == ctv.VAL_EMPTY {
+		flaggy.ShowHelpAndExit(message)
+	}
+}
+
+func loadConfig(configFilename string) (config Config, errorInfo errs.ErrorInfo) {
 
 	var (
-		//tInstanceName string
-		tResponse string
+		tConfigFile *os.File
 	)
 
-	if question == ctv.VAL_EMPTY && fbCredentials != ctv.VAL_EMPTY {
-		processTrainingData(fbCredentials, natsConnPtr, instanceName)
+	if tConfigFile, errorInfo.Error = os.Open(configFilename); errorInfo.Error != nil {
+		log.Fatal(errorInfo.Error)
 	}
+	defer func(tConfigFile *os.File) {
+		err := tConfigFile.Close()
+		if err != nil {
+			log.Fatalf("error: %v", err)
+		}
+	}(tConfigFile)
 
-	if tResponse, errorInfo = sendRequest(natsConnPtr, instanceName, analyzeProcess, question); errorInfo.Error != nil {
-		errs.PrintErrorInfo(errorInfo)
-		return
-	}
-	fmt.Printf("Reply: %s\n", tResponse)
+	decoder := yaml.NewDecoder(tConfigFile)
+	errorInfo.Error = decoder.Decode(&config)
 
 	return
 }
@@ -166,7 +178,7 @@ func processTrainingData(fbCredentials string, natsConnPtr *nats.Conn, instanceN
 		tAppPtr      *firebase.App
 		tDocRefPtr   []*firestore.DocumentSnapshot
 		tFSClientPtr *firestore.Client
-		tResponse    string
+		tCounter     int
 	)
 
 	fmt.Println()
@@ -193,20 +205,20 @@ func processTrainingData(fbCredentials string, natsConnPtr *nats.Conn, instanceN
 		}
 		data := snapshot.Data()
 		// Access data fields using their key, e.g.:
-		fmt.Printf("Document ID: %s, Category: %s, Question: %s\n", snapshot.Ref.ID, data[ctv.FN_CATEGORY], data[ctv.FN_QUESTION])
+		tCounter++
+		fmt.Println("----------------------------")
+		fmt.Printf("Counter: %d, Document ID: %s, Category: %s, Question: %s\n", tCounter, snapshot.Ref.ID, data[ctv.FN_CATEGORY], data[ctv.FN_QUESTION])
 
-		if tResponse, errorInfo = sendRequest(natsConnPtr, instanceName, "P", data[ctv.FN_QUESTION].(string)); errorInfo.Error != nil {
+		if _, errorInfo = sendRequest(natsConnPtr, instanceName, ctv.SUB_GEMINI_ANALYZE_QUESTION, data[ctv.FN_QUESTION].(string)); errorInfo.Error != nil {
 			errs.PrintErrorInfo(errorInfo)
 			os.Exit(1)
 		}
-
-		fmt.Printf("Reply: %+v\n", tResponse)
 	}
 
 	return
 }
 
-func sendRequest(natsConnPtr *nats.Conn, instanceName string, analyzeProcess string, question string) (response string, errorInfo errs.ErrorInfo) {
+func sendRequest(natsConnPtr *nats.Conn, instanceName string, subject string, question string) (response string, errorInfo errs.ErrorInfo) {
 
 	var (
 		dMessage             string
@@ -218,7 +230,7 @@ func sendRequest(natsConnPtr *nats.Conn, instanceName string, analyzeProcess str
 		tResponsePtr         *ns.NATSReply
 	)
 
-	if tEncryptedMessageB64, errorInfo = jwts.Encrypt(username, secretKey, question); errorInfo.Error != nil {
+	if tEncryptedMessageB64, errorInfo = jwts.Encrypt(userId, secretKey, question); errorInfo.Error != nil {
 		errs.PrintErrorInfo(errorInfo)
 	}
 
@@ -230,33 +242,36 @@ func sendRequest(natsConnPtr *nats.Conn, instanceName string, analyzeProcess str
 	}
 
 	tMessagePtr = &nats.Msg{
-		Header: make(nats.Header),
-		Data:   tQuestionJSON,
+		Header:  make(nats.Header),
+		Data:    tQuestionJSON,
+		Subject: subject,
 	}
-	tMessagePtr.Header.Add(ctv.FN_USERNAME, username)
+	tMessagePtr.Header.Add(ctv.FN_USERNAME, userId)
 	tMessagePtr.Header.Add(ctv.FN_STYH_CLIENT_ID, tSTYHClientIdB64)
 
-	if analyzeProcess == "P" {
-		tMessagePtr.Subject = ctv.SUB_GEMINI_GET_MY_ANSWER
-	} else {
-		tMessagePtr.Subject = ctv.SUB_GEMINI_ANALYZE_QUESTION
-	}
-
-	if tReplyPtr, errorInfo = ns.RequestWithHeader(natsConnPtr, instanceName, tMessagePtr, 3); errorInfo.Error != nil {
+	startTime := time.Now()
+	if tReplyPtr, errorInfo = ns.RequestWithHeader(natsConnPtr, instanceName, tMessagePtr, 5*time.Second); errorInfo.Error != nil {
+		elapsedTime := time.Since(startTime)
+		fmt.Printf("Elapsed time: %v\n", elapsedTime)
 		errs.PrintErrorInfo(errorInfo)
 		return
 	}
+	elapsedTime := time.Since(startTime)
+	fmt.Printf("Elapsed time: %v\n", elapsedTime)
 
 	if errorInfo = ns.UnmarshalMessageData("sendRequest", tReplyPtr, &tResponsePtr); errorInfo.Error != nil {
 		errs.PrintErrorInfo(errorInfo)
 		return
 	}
 
-	if dMessage, errorInfo = jwts.Decrypt(username, secretKey, tResponsePtr.Response.(string)); errorInfo.Error != nil {
-		errs.PrintErrorInfo(errorInfo)
-		return
+	if tResponsePtr.Response != nil {
+		if dMessage, errorInfo = jwts.Decrypt(userId, secretKey, tResponsePtr.Response.(string)); errorInfo.Error != nil {
+			errs.PrintErrorInfo(errorInfo)
+			return
+		}
+		fmt.Printf("Decrypted Response: %s\n", dMessage)
 	}
-	fmt.Printf("Decrypted Response: %s\n", dMessage)
+	fmt.Printf("Error Response: %s\n", tResponsePtr.ErrorInfo)
 
 	return
 }

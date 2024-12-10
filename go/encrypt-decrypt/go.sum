@@ -8,6 +8,8 @@ github.com/sty-holdings/sharedServices/v2024 v2024.11.3 h1:dcDvVdKS25EWgdiTZRtHY
 github.com/sty-holdings/sharedServices/v2024 v2024.11.3/go.mod h1:FAg0akGIYiSMRdWghJH+hiiAuipUhPnxKEGFpVcQrBY=
 github.com/sty-holdings/sharedServices/v2024 v2024.14.1 h1:aOf9Gd/wyE8m6gag7xnMBScRO7dZrjvd/sCl/WNMH+Q=
 github.com/sty-holdings/sharedServices/v2024 v2024.14.1/go.mod h1:FAg0akGIYiSMRdWghJH+hiiAuipUhPnxKEGFpVcQrBY=
+github.com/sty-holdings/sharedServices/v2024 v2024.26.4 h1:8lIDmih0kCX3eM3/vtrST9DNpkAVMK0Z47EJnpB9Rvk=
+github.com/sty-holdings/sharedServices/v2024 v2024.26.4/go.mod h1:FAg0akGIYiSMRdWghJH+hiiAuipUhPnxKEGFpVcQrBY=
 golang.org/x/text v0.19.0 h1:kTxAhCbGbxhK0IwgSKiMO5awPoDQ0RpfiVYBfK860YM=
 golang.org/x/text v0.19.0/go.mod h1:BuEKDfySbSR4drPmRPG/7iBdf8hvFMuRexcpahXilzY=
 golang.org/x/xerrors v0.0.0-20191204190536-9bdfabe68543/go.mod h1:I/5z698sn9Ka8TeJc9MKroUUfqBBauWjQqLJ2OPfmY0=

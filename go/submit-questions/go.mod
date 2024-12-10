@@ -7,7 +7,7 @@ require (
 	firebase.google.com/go v3.13.0+incompatible
 	github.com/integrii/flaggy v1.5.2
 	github.com/nats-io/nats.go v1.37.0
-	github.com/sty-holdings/sharedServices/v2024 v2024.21.5
+	github.com/sty-holdings/sharedServices/v2024 v2024.33.1
 	golang.org/x/text v0.20.0
 )
 
@@ -66,4 +66,5 @@ require (
 	google.golang.org/grpc v1.67.1 // indirect
 	google.golang.org/grpc/stats/opentelemetry v0.0.0-20240907200651-3ffb98b2c93a // indirect
 	google.golang.org/protobuf v1.35.1 // indirect
+	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
