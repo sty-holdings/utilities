@@ -21,7 +21,6 @@ import (
 	ctv "github.com/sty-holdings/sharedServices/v2024/constantsTypesVars"
 	errs "github.com/sty-holdings/sharedServices/v2024/errorServices"
 	fbs "github.com/sty-holdings/sharedServices/v2024/firebaseServices"
-	hlps "github.com/sty-holdings/sharedServices/v2024/helpers"
 )
 
 type Config struct {
@@ -102,7 +101,7 @@ func main() {
 		return
 	}
 
-	if saasProviders, errorInfo = hlps.PullSupportSaaSProviders(tFSClientPtr); errorInfo.Error != nil {
+	if saasProviders, errorInfo = pullSupportSaaSProviders(tFSClientPtr); errorInfo.Error != nil {
 		if !errors.Is(errs.ErrDocumentNotFound, errorInfo.Error) {
 			errs.PrintErrorInfo(errorInfo)
 			return
@@ -196,6 +195,31 @@ func processList() {
 
 	tData, errorInfo.Error = json.MarshalIndent(saasProviders, ctv.VAL_EMPTY, ctv.SPACES_FOUR)
 	fmt.Println(string(tData))
+
+	return
+}
+
+// pullSupportSaaSProviders - will read the Firestore datastore and run the data as a tri-map structure.
+//
+//	Customer Messages: None
+//	Errors: None
+//	Verifications: None
+func pullSupportSaaSProviders(tFSClientPtr *firestore.Client) (saasProviders map[string]map[string]map[string]string, errorInfo errs.ErrorInfo) {
+
+	var (
+		tData                interface{}
+		tDocumentSnapshotPtr *firestore.DocumentSnapshot
+	)
+
+	if tDocumentSnapshotPtr, errorInfo = fbs.GetDocumentById(tFSClientPtr, ctv.DATASTORE_REFERENCE_DATA, ctv.REF_SUPPORT_SAAS_PROVIDERS); errorInfo.Error != nil {
+		return
+	}
+
+	if tData, errorInfo.Error = tDocumentSnapshotPtr.DataAt(ctv.FN_JSON_STRING); errorInfo.Error != nil {
+		return
+	}
+	saasProviders = make(map[string]map[string]map[string]string)
+	errorInfo.Error = json.Unmarshal([]byte(tData.(string)), &saasProviders)
 
 	return
 }
