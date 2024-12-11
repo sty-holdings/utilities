@@ -9,6 +9,11 @@
       <change beforePath="$PROJECT_DIR$/go/csp-admin/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go/csp-admin/go.mod" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go/csp-admin/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go/csp-admin/go.sum" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go/csp-admin/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/go/csp-admin/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go/submit-questions/config/local.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/go/submit-questions/config/local.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go/submit-questions/config/mac.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/go/submit-questions/config/mac.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go/submit-questions/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go/submit-questions/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go/submit-questions/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go/submit-questions/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go/submit-questions/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/go/submit-questions/main.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,47 +32,47 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Go Build.Analyze Question.executor": "Run",
-    "Go Build.CSP Admin - Add.executor": "Run",
-    "Go Build.CSP Admin - Delete.executor": "Run",
-    "Go Build.CSP Admin - List.executor": "Run",
-    "Go Build.Decrypt / Encrypt Message.executor": "Run",
-    "Go Build.Decrypt Message.executor": "Run",
-    "Go Build.Encrypt Message.executor": "Run",
-    "Go Build.Get My Answer.executor": "Run",
-    "Go Build.Submit Questions.executor": "Run",
-    "Go Build.Submit Single Questions.executor": "Debug",
-    "Go Build.Submit Training Questions.executor": "Debug",
-    "Go Build.Test Questions .executor": "Run",
-    "Go Build.local - Submit Single Questions.executor": "Debug",
-    "Go Build.local - Test Questions .executor": "Run",
-    "Go Build.mac - Analyze Question.executor": "Run",
-    "Go Build.mac - Get My Answer.executor": "Run",
-    "Go Build.mac - Submit Single Questions .executor": "Run",
-    "Go Build.mac - Test Questions .executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.go.formatter.settings.were.checked": "true",
-    "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "RunOnceActivity.go.modules.automatic.dependencies.download": "true",
-    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
-    "git-widget-placeholder": "main",
-    "go.import.settings.migrated": "true",
-    "last_opened_file_path": "/Users/syacko/workspace/sty-holdings/utilities/go",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.lookFeel"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Go Build.Analyze Question.executor&quot;: &quot;Run&quot;,
+    &quot;Go Build.CSP Admin - Add.executor&quot;: &quot;Run&quot;,
+    &quot;Go Build.CSP Admin - Delete.executor&quot;: &quot;Run&quot;,
+    &quot;Go Build.CSP Admin - List.executor&quot;: &quot;Run&quot;,
+    &quot;Go Build.Decrypt / Encrypt Message.executor&quot;: &quot;Run&quot;,
+    &quot;Go Build.Decrypt Message.executor&quot;: &quot;Run&quot;,
+    &quot;Go Build.Encrypt Message.executor&quot;: &quot;Run&quot;,
+    &quot;Go Build.Get My Answer.executor&quot;: &quot;Run&quot;,
+    &quot;Go Build.Submit Questions.executor&quot;: &quot;Run&quot;,
+    &quot;Go Build.Submit Single Questions.executor&quot;: &quot;Debug&quot;,
+    &quot;Go Build.Submit Training Questions.executor&quot;: &quot;Debug&quot;,
+    &quot;Go Build.Test Questions .executor&quot;: &quot;Run&quot;,
+    &quot;Go Build.local - Submit Single Questions.executor&quot;: &quot;Debug&quot;,
+    &quot;Go Build.local - Test Questions .executor&quot;: &quot;Run&quot;,
+    &quot;Go Build.mac - Analyze Question.executor&quot;: &quot;Run&quot;,
+    &quot;Go Build.mac - Get My Answer.executor&quot;: &quot;Run&quot;,
+    &quot;Go Build.mac - Submit Single Questions .executor&quot;: &quot;Run&quot;,
+    &quot;Go Build.mac - Test Questions .executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.modules.automatic.dependencies.download&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/syacko/workspace/sty-holdings/utilities/go&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/go" />
       <recent name="$PROJECT_DIR$/go/submit-questions/config" />
     </key>
   </component>
-  <component name="RunManager" selected="Go Build.CSP Admin - List">
+  <component name="RunManager" selected="Go Build.Get My Answer">
     <configuration name="Analyze Question" type="GoApplicationRunConfiguration" factoryName="Go Application" folderName="Questions">
       <module name="utilities" />
       <working_directory value="$PROJECT_DIR$/go/submit-questions" />
@@ -208,20 +213,20 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/go/csp-admin/main.go</url>
-          <line>162</line>
-          <option name="timeStamp" value="24" />
+          <line>195</line>
+          <option name="timeStamp" value="25" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/go/csp-admin/main.go</url>
-          <line>196</line>
-          <option name="timeStamp" value="25" />
+          <url>file://$PROJECT_DIR$/go/submit-questions/main.go</url>
+          <line>128</line>
+          <option name="timeStamp" value="26" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/go/submit-questions/main.go</url>
+          <line>157</line>
+          <option name="timeStamp" value="27" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
-    <watches-manager>
-      <configuration name="GoApplicationRunConfiguration">
-        <watch expression="saasProviders" />
-      </configuration>
-    </watches-manager>
   </component>
 </project>

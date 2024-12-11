@@ -88,7 +88,7 @@ func main() {
 
 	switch action {
 	case "G":
-		tSubject = ctv.SUB_BRAIN_GET_MY_ANSWER
+		tSubject = ctv.SUB_HAL_GET_MY_ANSWER
 		checkNotEmpty(question, "You must provide a question.")
 	case "S", "T":
 		tSubject = ctv.SUB_GEMINI_ANALYZE_QUESTION

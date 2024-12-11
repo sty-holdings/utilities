@@ -1,2 +1,9 @@
 firebase_credentials: "/Volumes/development-share/.keys/com.styholdings.dkanswers/google/service-account-key/dkanswers-key.json"  # The filename of your firebase credentials.
+nats_info:
+  ca_bundle: "/Volumes/development-share/.keys/sty-holdings.net/local/local_sty-holdings_net/local_sty-holdings_net_CAbundle.crt"  # The filename of your NATS SSL CA Bundle.
+  certificate_key: "/Volumes/development-share/.keys/sty-holdings.net/local/local_sty-holdings_net/local-sty-holdings-net-private.key"  # The filename of your NATS SSL certificate key (Private key).
+  certificate: "/Volumes/development-share/.keys/sty-holdings.net/local/local_sty-holdings_net/local_sty-holdings_net.crt"  # The filename of your NATS SSL certificate.
+  credentials: "/Users/syacko/.local/share/nats/nsc/keys/creds/styh/US-WEST/connect-server-US-WEST.creds"  # The filename of your NATS credentials.
+  port: "4222"  # The NATS port to connect to the NATS Server.
+  url: "local.sty-holdings.net"  # The URL for the NATS Server. 
 testing_on: false  # This puts the server into testing mode.
